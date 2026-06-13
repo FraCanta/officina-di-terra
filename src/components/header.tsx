@@ -3,26 +3,40 @@
 import { Menu, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { CartDrawer } from "./cart-drawer";
-
-const links = [
-  ["Azienda", "/azienda"],
-  ["Prodotti", "/prodotti"],
-  ["Shop", "/shop"],
-  ["Contatti", "/contatti"],
-];
+import { useLanguage } from "./language-provider";
 
 export function Header() {
+  const { locale } = useLanguage();
+  const router = useRouter();
   const [open, setOpen] = useState(false);
+  const [switching, setSwitching] = useState(false);
+  const links = [
+    [locale === "it" ? "Azienda" : "Estate", "/azienda"],
+    [locale === "it" ? "Prodotti" : "Products", "/prodotti"],
+    ["Shop", "/shop"],
+    ["Magazine", "/magazine"],
+    [locale === "it" ? "Contatti" : "Contact", "/contatti"],
+  ];
+
+  const switchLocale = () => {
+    if (switching) return;
+    const nextLocale = locale === "it" ? "en" : "it";
+    setSwitching(true);
+    window.setTimeout(() => {
+      document.cookie = `officina-locale=${nextLocale}; path=/; max-age=31536000; samesite=lax`;
+      router.refresh();
+    }, 260);
+    window.setTimeout(() => setSwitching(false), 760);
+  };
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
-
     const handleEscape = (event: KeyboardEvent) => {
       if (event.key === "Escape") setOpen(false);
     };
-
     document.addEventListener("keydown", handleEscape);
     return () => {
       document.body.style.overflow = "";
@@ -45,7 +59,7 @@ export function Header() {
             />
           </Link>
 
-          <nav className="hidden items-center gap-9 lg:flex">
+          <nav className="hidden items-center gap-7 lg:flex">
             {links.map(([label, href]) => (
               <Link className="nav-link" href={href} key={href}>
                 {label}
@@ -54,12 +68,22 @@ export function Header() {
           </nav>
 
           <div className="flex items-center gap-3">
-            <span className="hidden text-xs font-semibold tracking-widest sm:block">IT</span>
+            <button
+              aria-label={locale === "it" ? "Passa all'inglese" : "Switch to Italian"}
+              className="language-switch hidden items-center gap-1 text-[0.65rem] font-semibold tracking-[0.14em] sm:flex"
+              onClick={switchLocale}
+              type="button"
+            >
+              <span className={locale === "it" ? "is-current" : ""}>IT</span>
+              <span className="text-black/25">/</span>
+              <span className={locale === "en" ? "is-current" : ""}>EN</span>
+            </button>
             <CartDrawer />
             <button
-              aria-label="Apri menu"
+              aria-label={locale === "it" ? "Apri menu" : "Open menu"}
               className="rounded-full border border-black/10 p-2.5 lg:hidden"
               onClick={() => setOpen(!open)}
+              type="button"
             >
               {open ? <X size={18} /> : <Menu size={18} />}
             </button>
@@ -76,7 +100,7 @@ export function Header() {
         <nav className="flex flex-1 flex-col justify-center">
           {links.map(([label, href], index) => (
             <Link
-              className={`${index === 0 ? "" : "border-t border-black/10"} py-6 font-serif text-[clamp(3.2rem,16vw,5.6rem)] leading-[0.92] tracking-[-0.07em] transition duration-300 hover:translate-x-2 hover:text-[#8f642c]`}
+              className={`${index === 0 ? "" : "border-t border-black/10"} py-4 font-serif text-[clamp(2.5rem,13vw,4.8rem)] leading-[0.92] tracking-[-0.06em] transition duration-300 hover:translate-x-2 hover:text-[#8f642c]`}
               href={href}
               key={href}
               onClick={() => setOpen(false)}
@@ -86,10 +110,25 @@ export function Header() {
           ))}
           <div className="border-t border-black/10" />
         </nav>
+        <div className="flex items-end justify-between pb-4">
+          <p className="text-[0.6rem] font-semibold uppercase tracking-[0.16em] text-[#10261c]/55">
+            {locale === "it"
+              ? "Sicilia biologica · Olio EVO · Nero d'Avola"
+              : "Organic Sicily · Extra virgin olive oil · Nero d'Avola"}
+          </p>
+          <button
+            className="text-xs font-semibold tracking-[0.18em]"
+            onClick={switchLocale}
+            type="button"
+          >
+            {locale === "it" ? "EN" : "IT"}
+          </button>
+        </div>
+      </div>
 
-        <p className="pb-3 text-[0.65rem] font-semibold uppercase tracking-[0.28em] text-[#10261c]/55">
-          Sicilia biologica &middot; Olio EVO &middot; Nero d&apos;Avola
-        </p>
+      <div aria-hidden className={`language-transition ${switching ? "is-active" : ""}`}>
+        <Image alt="" height={64} src="/images/transition-logo.png" width={64} />
+        <span>{locale === "it" ? "EN" : "IT"}</span>
       </div>
     </>
   );

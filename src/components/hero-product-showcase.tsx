@@ -3,10 +3,13 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import type { Product } from "@/data/products";
+import { localizeProduct } from "@/data/products";
+import { useLanguage } from "./language-provider";
 
 export function HeroProductShowcase({ products }: { products: Product[] }) {
+  const { locale } = useLanguage();
   const [activeIndex, setActiveIndex] = useState(0);
-  const activeProduct = products[activeIndex];
+  const activeProduct = localizeProduct(products[activeIndex], locale);
 
   useEffect(() => {
     const interval = window.setInterval(() => {
@@ -21,7 +24,7 @@ export function HeroProductShowcase({ products }: { products: Product[] }) {
       <div className="relative h-[min(48vw,500px)]">
         {products.map((product, index) => (
           <Image
-            alt={product.name}
+            alt={localizeProduct(product, locale).name}
             className={`absolute inset-0 h-full w-full object-contain mix-blend-multiply drop-shadow-[0_38px_34px_rgba(0,0,0,0.46)] transition duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
               index === activeIndex
                 ? "translate-y-0 scale-100 opacity-100"
@@ -43,7 +46,7 @@ export function HeroProductShowcase({ products }: { products: Product[] }) {
         <div className="mt-5 flex justify-center gap-2">
           {products.map((product, index) => (
             <button
-              aria-label={`Mostra ${product.shortName}`}
+              aria-label={`${locale === "it" ? "Mostra" : "Show"} ${localizeProduct(product, locale).shortName}`}
               className={`h-1.5 rounded-full transition-all ${
                 index === activeIndex ? "w-8 bg-[#dbbd84]" : "w-3 bg-white/25"
               }`}

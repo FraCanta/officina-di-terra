@@ -1,29 +1,62 @@
-import Link from "next/link";
+"use client";
+
 import { Mail, MapPin, Phone } from "lucide-react";
+import Link from "next/link";
+import { useLanguage } from "./language-provider";
 
 export function Footer() {
+  const { locale } = useLanguage();
+  const t = {
+    it: {
+      title: "La Sicilia, coltivata con rispetto.",
+      contacts: "Contatti",
+      explore: "Esplora",
+      estate: "Azienda",
+      products: "I nostri prodotti",
+      contact: "Contatti",
+    },
+    en: {
+      title: "Sicily, cultivated with respect.",
+      contacts: "Contact",
+      explore: "Explore",
+      estate: "Estate",
+      products: "Our products",
+      contact: "Contact",
+    },
+  }[locale];
+
   return (
     <footer className="bg-[#10291f] text-[#f7f4ed]">
       <div className="site-container grid gap-12 py-16 md:grid-cols-2 lg:grid-cols-4">
         <div className="lg:col-span-2">
           <p className="eyebrow text-[#d5b982]">Officina di Terra</p>
           <h2 className="mt-4 max-w-xl font-serif text-4xl leading-tight md:text-5xl">
-            La Sicilia, coltivata con rispetto.
+            {t.title}
           </h2>
         </div>
         <div className="space-y-4 text-sm text-white/70">
-          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white">Contatti</p>
-          <a className="flex gap-3" href="tel:+393928786281"><Phone size={16} />+39 392 878 6281</a>
-          <a className="flex gap-3" href="mailto:info@officinaditerra.com"><Mail size={16} />info@officinaditerra.com</a>
-          <p className="flex gap-3"><MapPin className="shrink-0" size={16} />Via Vesuvio, 15<br />92010 Realmonte (AG)</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white">
+            {t.contacts}
+          </p>
+          <a className="flex gap-3" href="tel:+393928786281">
+            <Phone size={16} />+39 392 878 6281
+          </a>
+          <a className="flex gap-3" href="mailto:info@officinaditerra.com">
+            <Mail size={16} />info@officinaditerra.com
+          </a>
+          <p className="flex gap-3">
+            <MapPin className="shrink-0" size={16} />Via Vesuvio, 15
+            <br />92010 Realmonte (AG)
+          </p>
         </div>
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.22em]">Esplora</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.22em]">{t.explore}</p>
           <div className="mt-4 grid gap-3 text-sm text-white/70">
-            <Link href="/azienda">Azienda</Link>
-            <Link href="/prodotti">I nostri prodotti</Link>
+            <Link href="/azienda">{t.estate}</Link>
+            <Link href="/prodotti">{t.products}</Link>
             <Link href="/shop">Shop</Link>
-            <Link href="/contatti">Contatti</Link>
+            <Link href="/magazine">Magazine</Link>
+            <Link href="/contatti">{t.contact}</Link>
           </div>
         </div>
       </div>
