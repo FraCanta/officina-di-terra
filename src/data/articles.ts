@@ -56,7 +56,7 @@ export const articles: Article[] = [
   {
     slug: "raccolta-precoce-gesto-di-qualita",
     cover: "/images/brand/trattore-uliveto.webp",
-    category: { it: "Olio EVO", en: "Extra virgin olive oil" },
+    category: { it: "Olio EVO", en: "EVO oil" },
     title: {
       it: "Raccolta precoce, un gesto di qualità",
       en: "Early harvest, a choice for quality",

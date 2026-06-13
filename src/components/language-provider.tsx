@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useContext } from "react";
+import { usePathname } from "next/navigation";
 import type { Locale } from "@/i18n/config";
 
 const common = {
@@ -39,7 +40,7 @@ const common = {
     goToShop: "Go to shop",
     addToCart: "Add to cart",
     addedToCart: "Added to cart",
-    categoryOil: "olive oil",
+    categoryOil: "EVO oil",
     categoryWine: "wine",
   },
 } as const;
@@ -58,8 +59,12 @@ export function LanguageProvider({
   children: React.ReactNode;
   locale: Locale;
 }) {
+  const pathname = usePathname();
+  const activeLocale: Locale =
+    pathname === "/en" || pathname.startsWith("/en/") ? "en" : locale;
+
   return (
-    <LanguageContext.Provider value={{ locale, t: common[locale] }}>
+    <LanguageContext.Provider value={{ locale: activeLocale, t: common[activeLocale] }}>
       {children}
     </LanguageContext.Provider>
   );

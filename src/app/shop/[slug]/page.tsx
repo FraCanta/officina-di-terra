@@ -59,7 +59,7 @@ export default async function ProductPage({
         </div>
         <div className="flex items-center">
           <div className="max-w-xl">
-            <p className="eyebrow text-[#8a672f]">{product.category === "olio" ? (locale === "it" ? "olio" : "olive oil") : (locale === "it" ? "vino" : "wine")} · {product.volume}</p>
+            <p className="eyebrow text-[#8a672f]">{product.category === "olio" ? (locale === "it" ? "olio EVO" : "EVO oil") : (locale === "it" ? "vino" : "wine")} · {product.volume}</p>
             <h1 className="mt-5 font-serif text-5xl leading-[0.95] md:text-7xl">{product.shortName}</h1>
             <p className="mt-7 text-2xl">{formatPrice(product.price, locale)}</p>
             <p className="mt-8 text-lg leading-8 text-black/60">{product.description}</p>

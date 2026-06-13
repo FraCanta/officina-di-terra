@@ -3,31 +3,38 @@
 import { Menu, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { CartDrawer } from "./cart-drawer";
 import { useLanguage } from "./language-provider";
 
 export function Header() {
   const { locale } = useLanguage();
-  const router = useRouter();
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [switching, setSwitching] = useState(false);
-  const links = [
+  const baseLinks = [
     [locale === "it" ? "Azienda" : "Estate", "/azienda"],
     [locale === "it" ? "Prodotti" : "Products", "/prodotti"],
     ["Shop", "/shop"],
     ["Magazine", "/magazine"],
     [locale === "it" ? "Contatti" : "Contact", "/contatti"],
   ];
+  const localizeHref = (href: string) =>
+    locale === "en" ? (href === "/" ? "/en" : `/en${href}`) : href;
+  const links = baseLinks.map(([label, href]) => [label, localizeHref(href)]);
 
   const switchLocale = () => {
     if (switching) return;
     const nextLocale = locale === "it" ? "en" : "it";
+    const cleanPath = pathname === "/en" ? "/" : pathname.replace(/^\/en(?=\/)/, "");
+    const nextPath = nextLocale === "en"
+      ? cleanPath === "/" ? "/en" : `/en${cleanPath}`
+      : cleanPath;
     setSwitching(true);
     window.setTimeout(() => {
       document.cookie = `officina-locale=${nextLocale}; path=/; max-age=31536000; samesite=lax`;
-      router.refresh();
+      window.location.assign(nextPath);
     }, 260);
     window.setTimeout(() => setSwitching(false), 760);
   };
@@ -48,7 +55,7 @@ export function Header() {
     <>
       <header className="sticky top-0 z-50 border-b border-black/10 bg-[#f4f0e7]/92 backdrop-blur-xl">
         <div className="site-container flex h-20 items-center justify-between">
-          <Link aria-label="Officina di Terra, home" href="/">
+          <Link aria-label="Officina di Terra, home" href={localizeHref("/")}>
             <Image
               alt="Azienda Agricola Officina di Terra"
               className="h-auto w-[220px]"
@@ -97,10 +104,10 @@ export function Header() {
           open ? "translate-x-0" : "pointer-events-none -translate-x-full"
         }`}
       >
-        <nav className="flex flex-1 flex-col justify-center">
+        <nav className="flex flex-1 flex-col justify-start pt-8 sm:pt-12">
           {links.map(([label, href], index) => (
             <Link
-              className={`${index === 0 ? "" : "border-t border-black/10"} py-4 font-serif text-[clamp(2.5rem,13vw,4.8rem)] leading-[0.92] tracking-[-0.06em] transition duration-300 hover:translate-x-2 hover:text-[#8f642c]`}
+              className={`${index === 0 ? "" : "border-t border-black/10"} py-3.5 font-serif text-[clamp(2.35rem,12vw,4.5rem)] leading-[0.92] tracking-[-0.06em] transition duration-300 hover:translate-x-2 hover:text-[#8f642c]`}
               href={href}
               key={href}
               onClick={() => setOpen(false)}
@@ -110,11 +117,11 @@ export function Header() {
           ))}
           <div className="border-t border-black/10" />
         </nav>
-        <div className="flex items-end justify-between pb-4">
+        <div className="flex items-end justify-between pb-10 sm:pb-12">
           <p className="text-[0.6rem] font-semibold uppercase tracking-[0.16em] text-[#10261c]/55">
             {locale === "it"
               ? "Sicilia biologica · Olio EVO · Nero d'Avola"
-              : "Organic Sicily · Extra virgin olive oil · Nero d'Avola"}
+              : "Organic Sicily · EVO oil · Nero d'Avola"}
           </p>
           <button
             className="text-xs font-semibold tracking-[0.18em]"

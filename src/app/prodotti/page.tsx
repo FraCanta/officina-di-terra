@@ -35,7 +35,7 @@ export default async function ProdottiPage() {
         discover: "Discover the collection",
         families: [
           {
-            title: "Organic extra virgin olive oil",
+            title: "Organic EVO oil",
             label: "Nocellara del Belice · Biancolilla",
             copy: "A golden yellow oil with green hues and notes of tomato, banana, white apple, basil and mint.",
             image: "https://officinaditerra.com/wp-content/uploads/2024/02/img_8666-e1707849980706.jpg",

@@ -18,9 +18,9 @@ export default async function ShopPage() {
     : {
         eyebrow: "Directly from our estate",
         title: "The shop",
-        intro: "Organic extra virgin olive oil and Sicilia DOC Nero d'Avola. We ship throughout Italy.",
+        intro: "Organic EVO oil and Sicilia DOC Nero d'Avola. We ship throughout Italy.",
         count: "products",
-        categories: "Olive oil · Wine",
+        categories: "EVO oil · Wine",
       };
 
   return (
