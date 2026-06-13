@@ -1,9 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowDown, ArrowUpRight, Leaf, MapPin, Quote, Sun } from "lucide-react";
+import { ArrowUpRight, Droplets, HandPlatter, Leaf, MapPin, Quote, Sparkles, Sun } from "lucide-react";
+import { HeroProductShowcase } from "@/components/hero-product-showcase";
 import { LuxuryMotion } from "@/components/luxury-motion";
 import { ProductCard } from "@/components/product-card";
-import { featuredProducts } from "@/data/products";
+import { featuredProducts, products } from "@/data/products";
 
 export default function Home() {
   return (
@@ -50,34 +51,20 @@ export default function Home() {
           </div>
 
           <div className="relative z-10 hidden h-[640px] lg:block">
-            <div className="hero-product absolute bottom-2 right-[8%] w-[285px]">
-              <div className="relative aspect-[3/5]">
-                <Image
-                  alt="Olio extravergine biologico Nocelilla"
-                  className="object-contain mix-blend-multiply drop-shadow-[0_35px_30px_rgba(0,0,0,0.45)]"
-                  fill
-                  sizes="310px"
-                  src="https://officinaditerra.com/wp-content/uploads/2024/02/olio-medio-1920-768x768.jpg"
-                />
-              </div>
-              <div className="mt-2 border-t border-[#dbbd84]/40 pt-4 text-center">
-                <p className="eyebrow text-[#dbbd84]">Nocelilla · EVO biologico</p>
-              </div>
-            </div>
-            <div className="absolute right-[315px] top-16 border-l border-[#dbbd84]/60 pl-5">
-              <p className="text-[10px] uppercase tracking-[0.24em] text-white/45">Territorio</p>
-              <p className="mt-2 font-serif text-2xl">25 ettari</p>
-            </div>
-            <div className="absolute right-[345px] top-40 border-l border-[#dbbd84]/60 pl-5">
-              <p className="text-[10px] uppercase tracking-[0.24em] text-white/45">Distanza dal mare</p>
-              <p className="mt-2 font-serif text-2xl">1 km</p>
-            </div>
-            <div className="absolute right-[370px] top-64 border-l border-[#dbbd84]/60 pl-5">
-              <p className="text-[10px] uppercase tracking-[0.24em] text-white/45">Metodo</p>
-              <p className="mt-2 font-serif text-2xl">Biologico</p>
+            <HeroProductShowcase products={[products[4], products[6], products[8], products[1]]} />
+            <div className="absolute left-4 top-16 grid max-w-[220px] gap-9 xl:left-12">
+              {[
+                ["Territorio", "25 ettari"],
+                ["Distanza dal mare", "1 km"],
+                ["Metodo", "Biologico"],
+              ].map(([label, value]) => (
+                <div className="border-l border-[#dbbd84]/60 pl-5" key={label}>
+                  <p className="text-[10px] uppercase tracking-[0.24em] text-white/45">{label}</p>
+                  <p className="mt-2 font-serif text-2xl">{value}</p>
+                </div>
+              ))}
             </div>
           </div>
-          <ArrowDown className="absolute bottom-8 left-1/2 hidden animate-bounce lg:block" />
         </div>
       </section>
 
@@ -112,12 +99,12 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="overflow-hidden border-y border-black/10 py-8">
+      <section className="overflow-hidden border-y border-[#10261c]/6 bg-[#eef1e9] py-8">
         <div className="luxury-marquee flex w-max items-center gap-12 whitespace-nowrap px-8">
-          {["Terra", "Attesa", "Gesto", "Materia", "Sicilia"].map((word) => (
-            <div className="flex items-center gap-12" key={word}>
+          {[...["Terra", "Attesa", "Gesto", "Materia", "Sicilia"], ...["Terra", "Attesa", "Gesto", "Materia", "Sicilia"]].map((word, index) => (
+            <div aria-hidden={index > 4} className="flex items-center gap-12" key={`${word}-${index}`}>
               <span className="brand-word">{word}</span>
-              <span className="size-2 rounded-full bg-[#b88945]" />
+              <span className="size-2 rounded-full bg-[#10261c]/15" />
             </div>
           ))}
         </div>
@@ -130,7 +117,7 @@ export default function Home() {
             className="object-cover"
             fill
             sizes="(max-width: 1024px) 100vw, 50vw"
-            src="https://officinaditerra.com/wp-content/uploads/2024/05/pana5444.jpg"
+            src="/images/brand/uliveto-mare.webp"
           />
         </div>
         <div className="flex items-center bg-[#10291f] px-8 py-20 text-white md:px-16 lg:px-20">
@@ -179,6 +166,45 @@ export default function Home() {
                 silenzi.
               </p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-[#10261c] py-20 text-white lg:py-28" data-reveal>
+        <div className="site-container">
+          <div className="mb-12 grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
+            <div>
+              <p className="eyebrow text-[#d5b982]">Dentro l&apos;azienda</p>
+              <h2 className="mt-5 font-serif text-5xl leading-[0.95] md:text-7xl">
+                La terra, le macchine, le mani.
+              </h2>
+            </div>
+            <p className="max-w-2xl leading-7 text-white/62">
+              Un paesaggio agricolo vivo: uliveti affacciati sul mare, filari in collina e
+              lavoro quotidiano tra mezzi, potature e stagioni.
+            </p>
+          </div>
+          <div className="grid gap-4 md:grid-cols-4 md:grid-rows-[260px_260px]">
+            {[
+              ["Uliveti sul mare", "/images/brand/uliveto-mare.webp", "md:col-span-2 md:row-span-2"],
+              ["Filari", "/images/brand/vigneto-filari.webp", ""],
+              ["Lavorazione", "/images/brand/trattore-uliveto.webp", ""],
+              ["Contrada", "/images/brand/foglie-ruderi.webp", "md:col-span-2"],
+            ].map(([label, src, className]) => (
+              <figure className={`group relative min-h-[280px] overflow-hidden ${className}`} key={label}>
+                <Image
+                  alt={label}
+                  className="object-cover transition duration-700 group-hover:scale-105"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  src={src}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent" />
+                <figcaption className="absolute bottom-5 left-5 text-xs font-semibold uppercase tracking-[0.22em] text-white/75">
+                  {label}
+                </figcaption>
+              </figure>
+            ))}
           </div>
         </div>
       </section>
@@ -232,54 +258,52 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="grid lg:grid-cols-3" data-reveal>
+      <section className="bg-[#f4f0e7] py-20 lg:py-28" data-reveal>
+        <div className="site-container grid gap-px bg-[#10261c]/10 lg:grid-cols-3">
         {[
           {
+            icon: Droplets,
             label: "Versare",
             title: "Il gesto",
-            copy: "L'olio non è un accessorio: è l'ultimo gesto della cucina, quello che unisce tutti gli altri.",
-            image: "https://officinaditerra.com/wp-content/uploads/2024/05/pana5472-scaled-e1701876289185.jpg",
+            copy: "L'olio non e un accessorio: e l'ultimo gesto della cucina, quello che unisce tutti gli altri.",
           },
           {
+            icon: Sparkles,
             label: "Assaggiare",
             title: "I sensi",
             copy: "Colore, profumo, amaro, piccante. Assaggiare significa imparare a riconoscere la materia.",
-            image: "https://officinaditerra.com/wp-content/uploads/2024/05/img_8566.jpg",
           },
           {
+            icon: HandPlatter,
             label: "Condividere",
             title: "La tavola",
-            copy: "Olio e vino trovano il loro significato più vero quando diventano incontro e conversazione.",
-            image: "https://officinaditerra.com/wp-content/uploads/2024/05/img_8552.jpg",
+            copy: "Olio e vino trovano il loro significato piu vero quando diventano incontro e conversazione.",
           },
-        ].map((ritual) => (
-          <article className="group relative min-h-[620px] overflow-hidden text-white" key={ritual.title}>
-            <Image
-              alt={ritual.title}
-              className="object-cover transition duration-700 group-hover:scale-105"
-              fill
-              sizes="(max-width: 1024px) 100vw, 33vw"
-              src={ritual.image}
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
-            <div className="absolute inset-x-0 bottom-0 p-8 md:p-10">
-              <p className="eyebrow text-[#e5cda3]">{ritual.label}</p>
-              <h3 className="mt-3 font-serif text-5xl">{ritual.title}</h3>
-              <p className="mt-5 max-w-sm leading-7 text-white/70">{ritual.copy}</p>
-            </div>
-          </article>
-        ))}
-      </section>
+        ].map((ritual) => {
+          const RitualIcon = ritual.icon;
 
+          return (
+            <article className="min-h-[420px] bg-[#f4f0e7] p-8 text-[#10261c] md:p-10" key={ritual.title}>
+              <div className="flex size-16 items-center justify-center rounded-full border border-[#10261c]/15 text-[#8f642c]">
+                <RitualIcon size={26} strokeWidth={1.3} />
+              </div>
+              <p className="eyebrow mt-12 text-[#8f642c]">{ritual.label}</p>
+              <h3 className="mt-4 font-serif text-5xl">{ritual.title}</h3>
+              <p className="mt-7 max-w-sm leading-7 text-[#10261c]/62">{ritual.copy}</p>
+            </article>
+          );
+        })}
+        </div>
+      </section>
       <section className="relative overflow-hidden py-28 text-white md:py-40" data-reveal>
         <Image
           alt="Vigneto siciliano"
           className="object-cover"
           fill
           sizes="100vw"
-          src="https://officinaditerra.com/wp-content/uploads/2024/02/img_8648.jpg"
+          src="/images/brand/vigneto-paesaggio.webp"
         />
-        <div className="absolute inset-0 bg-[#401e19]/65" />
+        <div className="absolute inset-0 bg-[#2b1210]/75" />
         <div className="site-container relative text-center">
           <p className="eyebrow text-[#e5cda3]">Nero d&apos;Avola DOC</p>
           <h2 className="mx-auto mt-5 max-w-4xl font-serif text-5xl leading-[0.95] md:text-8xl">

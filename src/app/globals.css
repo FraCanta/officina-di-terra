@@ -13,6 +13,12 @@
 
 html {
   scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
 }
 
 body {
@@ -147,7 +153,7 @@ body::before {
   animation: gold-word-in 1.25s 0.55s both cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.hero-product {
+.hero-product-showcase {
   animation:
     product-in 1.2s 0.45s both cubic-bezier(0.22, 1, 0.36, 1),
     product-float 6s 1.7s ease-in-out infinite;
@@ -283,7 +289,7 @@ body::before {
     transform: translateX(0);
   }
   to {
-    transform: translateX(-25%);
+    transform: translateX(-50%);
   }
 }
 
@@ -292,6 +298,7 @@ body::before {
 }
 
 .brand-word {
+  color: rgb(16 38 28 / 0.16);
   font-family: Georgia, "Times New Roman", serif;
   font-size: clamp(3rem, 8vw, 7.5rem);
   font-style: italic;
