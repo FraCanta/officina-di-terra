@@ -33,7 +33,7 @@ export default async function Home() {
         <Image
           alt=""
           aria-hidden
-          className="hero-engraving absolute -bottom-[28%] right-[-5%] h-auto w-[min(72vw,900px)] opacity-55"
+          className="hero-engraving absolute -bottom-[8%] right-[-34%] h-auto w-[125vw] max-w-none opacity-65 sm:-bottom-[18%] sm:right-[-14%] sm:w-[92vw] lg:-bottom-[28%] lg:right-[-5%] lg:w-[min(72vw,900px)] lg:opacity-55"
           height={1536}
           priority
           src="/images/olive-engraving-gold.png"
