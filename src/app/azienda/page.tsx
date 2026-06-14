@@ -149,7 +149,7 @@ export default async function AziendaPage() {
         </div>
         <div className="lg:pl-12">
           <p className="eyebrow text-[#8a672f]">{t.family}</p>
-          <h2 className="mt-5 font-serif text-5xl leading-[0.95] md:text-7xl">{t.familyTitle}</h2>
+          <h2 className="azienda-section-title mt-5 font-serif text-5xl leading-[0.95] md:text-7xl">{t.familyTitle}</h2>
           <p className="mt-8 max-w-xl text-lg leading-8 text-black/60">{t.familyCopy}</p>
           <div className="mt-10 flex items-center gap-4 border-t border-black/10 pt-6">
             <Sprout className="text-[#8a672f]" size={23} />
@@ -163,7 +163,7 @@ export default async function AziendaPage() {
           <div className="mb-12 grid gap-8 lg:grid-cols-2 lg:items-end">
             <div>
               <p className="eyebrow text-[#d5b982]">{t.work}</p>
-              <h2 className="mt-5 font-serif text-5xl leading-[0.95] md:text-7xl">{t.workTitle}</h2>
+              <h2 className="azienda-section-title mt-5 font-serif text-5xl leading-[0.95] md:text-7xl">{t.workTitle}</h2>
             </div>
             <p className="max-w-xl leading-7 text-white/60">{t.workCopy}</p>
           </div>
@@ -200,7 +200,7 @@ export default async function AziendaPage() {
         <div className="flex items-center bg-[#401e19] px-8 py-20 text-white md:px-16">
           <div>
             <p className="eyebrow text-[#e5cda3]">{t.wine}</p>
-            <h2 className="mt-5 font-serif text-5xl leading-[0.95] md:text-7xl">{t.wineTitle}</h2>
+            <h2 className="azienda-section-title mt-5 font-serif text-5xl leading-[0.95] md:text-7xl">{t.wineTitle}</h2>
             <p className="mt-7 max-w-xl leading-7 text-white/65">{t.wineCopy}</p>
             <Link className="button-light mt-9" href="/shop/nero-davola-doc-nero">
               {t.discoverWine}
@@ -212,7 +212,7 @@ export default async function AziendaPage() {
       <section className="site-container py-24 lg:py-32">
         <div className="mb-14 max-w-3xl">
           <p className="eyebrow text-[#8a672f]">{t.process}</p>
-          <h2 className="mt-5 font-serif text-5xl leading-[0.95] md:text-7xl">{t.processTitle}</h2>
+          <h2 className="azienda-section-title mt-5 font-serif text-5xl leading-[0.95] md:text-7xl">{t.processTitle}</h2>
         </div>
         <div className="grid border-t border-black/10 md:grid-cols-2">
           {wineProcess.map(({ icon: Icon, title, text, details }) => (

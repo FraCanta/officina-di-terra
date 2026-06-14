@@ -58,7 +58,7 @@ export function Header() {
           <Link aria-label="Officina di Terra, home" href={localizeHref("/")}>
             <Image
               alt="Azienda Agricola Officina di Terra"
-              className="h-auto w-[220px]"
+              className="h-auto w-[185px] sm:w-[200px] lg:w-[220px]"
               height={50}
               priority
               src="https://officinaditerra.com/wp-content/uploads/2023/12/logo-officina-di-terra-nero_sito.png"

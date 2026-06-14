@@ -387,3 +387,11 @@ body::before {
     width: min(100% - 4rem, 1240px);
   }
 }
+
+@media (max-width: 360px) {
+  .azienda-section-title {
+    font-size: 2.65rem;
+    letter-spacing: -0.035em;
+    overflow-wrap: anywhere;
+  }
+}
